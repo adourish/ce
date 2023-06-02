@@ -8,6 +8,9 @@ export const createWindow = (url, width, height, left, top) => {
       const window = windows[i];
       for (let j = 0; j < window.tabs.length; j++) {
         const tab = window.tabs[j];
+        if (tab && tab.url) {
+          console.log("createWindow getAll looking", tab.url)
+        }
         if (tab.url === url) {
           existingWindow = window;
           break;

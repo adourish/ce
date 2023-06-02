@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react';
-
+import { createWindow } from '../Content/modules/closeWindow';
 class ChatGPT extends React.Component {
 
     render() {
-        chrome.windows.create({
-            url: 'https://chat.openai.com',
-            type: 'popup',
-            focused: false,
-            width: 500,
-            height: 600,
-            left: 0,
-            top: 615
-        });
+        createWindow("https://chat.openai.com/", 800, 430, 0, 615)
+
         return (
             <div />
         );

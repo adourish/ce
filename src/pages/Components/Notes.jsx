@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react';
-
+import { createWindow } from '../Content/modules/closeWindow';
 class Notes extends React.Component {
 
     render() {
-        chrome.windows.create({
-            url: 'https://www.amplenote.com/notes',
-            type: 'popup',
-            focused: false,
-            width: 500,
-            height: 600,
-            left: 1280,
-            top: 15
-        });
+        createWindow("https://www.amplenote.com/notes", 500, 600, 1280, 15)
+
         return (
 
             <div />

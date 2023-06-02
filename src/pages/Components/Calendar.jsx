@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { closeWindow, createWindow } from '../Content/modules/closeWindow';
+import { createWindow } from '../Content/modules/closeWindow';
 class Calendar extends React.Component {
 
     render() {

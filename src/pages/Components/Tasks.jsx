@@ -1,17 +1,10 @@
 import React, { useEffect } from 'react';
-
+import { createWindow } from '../Content/modules/closeWindow';
 class Tasks extends React.Component {
 
     render() {
-        chrome.windows.create({
-            url: 'https://todoist.com/app/project/2149072136',
-            type: 'popup',
-            focused: false,
-            width: 500,
-            height: 600,
-            left: 790,
-            top: 15
-        });
+        createWindow("https://todoist.com/app/project/2149072136", 500, 600, 790, 15)
+
         return (
 
             <div />

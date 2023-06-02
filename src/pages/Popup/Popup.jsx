@@ -5,22 +5,19 @@ import Notes from '../Components/Notes';
 import Calendar from '../Components/Calendar';
 import ChatGPT from '../Components/ChatGPT';
 import Tasks from '../Components/Tasks';
+import TerminalPopup from '../Components/TerminalPopup';
 import './Popup.css';
 
 const Popup = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="grid-container">
-          <div className="grid-item">
-            <ChatGPT />
-            <Notes />
-            <Calendar />
-            <Tasks />
-            <OAuth2 />
-          </div>
-        </div>
-      </header>
+    <div className="popup-container">
+
+      <ChatGPT />
+      <Notes />
+      <Calendar />
+      <Tasks />
+      <OAuth2 />
+      <TerminalPopup />
     </div>
   );
 };

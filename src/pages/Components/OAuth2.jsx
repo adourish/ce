@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import OAuth2Login from 'react-simple-oauth2-login';
+import { createWindow } from '../Content/modules/closeWindow';
 class OAuth2 extends React.Component {
     state = {
         name: 'dev',
