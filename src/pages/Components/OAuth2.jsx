@@ -29,7 +29,7 @@ class OAuth2 extends React.Component {
             </div>
         );
     }
-
+    //https://login.amplenote.com/login?client_id=b889d2968aaee9169fc6981dcf175c2f63af8cddf1bfdce0a431fa1757534502&scope=&redirect_uri=https://www.amplenote.com/oauth-receiver.html&response_type=code
     //https://login.amplenote.com/login?client_id=c9860d38b0df2b7c3aad2e3645eca41355e6ff31e147f90f889d7f8394b59418&nonce=94375f7338f3aa937a3c0bd4cc234dc89600ccc6b396980df4484b2847701fa6&redirect_uri=https%3A%2F%2Fwww.amplenote.com%2Flogin%2Fcallback&response_type=code&state=20239d639eb9e9f5d01adefe4b401137ae9e38b037d5e34ef1d7db73994cd372
 
     /** 

@@ -16,7 +16,7 @@ const Popup = () => {
       <Notes />
       <Calendar />
       <Tasks />
-      <OAuth2 />
+
       <TerminalPopup />
     </div>
   );

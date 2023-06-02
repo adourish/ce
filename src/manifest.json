@@ -18,14 +18,21 @@
   },
   "permissions": [
     "tabs",
-    "windows"
+    "windows",
+    "scripting",
+    "notifications"
+  ],
+  "host_permissions": [
+    "https://*/",
+    "https://*/*",
+    "https://www.amplenote.com/notes",
+    "<all_urls>"
   ],
   "content_scripts": [
     {
       "matches": [
-        "http://*/*",
         "https://*/*",
-        "<all_urls>"
+        "https://www.amplenote.com/notes"
       ],
       "js": [
         "contentScript.bundle.js"
