@@ -39,26 +39,47 @@ export const createWindow = (url, width, height, left, top) => {
       });
     }
   });
-  /** 
-  console.log("createWindow query", url)
-  chrome.tabs.query({ url: "https://*cal*" }, function (tabs) {
-    console.log("createWindow query result", tabs)
-    if (tabs.length > 0) {
-      console.log('createWindow update:', url);
-      //chrome.tabs.update(tabs[0].id, { 'active': true });
-    } else {
-      console.log('createWindow new:', url);
-      chrome.windows.create({
-        url: url,
-        type: 'popup',
-        focused: false,
-        width: width,
-        height: height,
-        left: left,
-        top: top
-      });
-    }
-  });
-  **/
 
 };
+
+export const runScriptOnWindow = (url, code) => {
+  chrome.windows.getAll({ populate: true }, function (windows) {
+    console.log("runScriptOnWindow getAll", windows)
+    // Check if the window already exists
+    let existingWindow = null;
+    let existingTab = null;
+    for (let i = 0; i < windows.length; i++) {
+      const window = windows[i];
+      for (let j = 0; j < window.tabs.length; j++) {
+        const tab = window.tabs[j];
+        if (tab && tab.url) {
+          console.log("runScriptOnWindow getAll looking", tab.url)
+        }
+        if (tab.url === url) {
+          existingWindow = window;
+          existingTab = tab;
+          break;
+        }
+      }
+    }
+    if (existingWindow && existingTab) {
+      console.log("runScriptOnWindow found", url)
+      const scriptDetails = {
+        code: code,
+      };
+      chrome.scripting
+        .executeScript({
+          target: { tabId: existingTab.id, allFrames: false },
+          func: getAmplenoteToken,
+        })
+        .then(() =>
+          console.log("script injected in all frames")
+        );
+    }
+  });
+
+};
+
+function getAmplenoteToken() {
+  console.log("getAmplenoteToken")
+}
