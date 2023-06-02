@@ -42,7 +42,7 @@ export const createWindow = (url, width, height, left, top) => {
 
 };
 
-export const runScriptOnWindow = (url, code) => {
+export const runScriptOnWindow = (name, url, code) => {
   chrome.windows.getAll({ populate: true }, function (windows) {
     console.log("runScriptOnWindow getAll", windows)
     // Check if the window already exists
@@ -70,16 +70,18 @@ export const runScriptOnWindow = (url, code) => {
       chrome.scripting
         .executeScript({
           target: { tabId: existingTab.id, allFrames: false },
-          func: getAmplenoteToken,
+          func: code,
         })
-        .then(() =>
-          console.log("script injected in all frames")
-        );
+        .then((results) => {
+          if (results) {
+            localStorage.setItem(name, results[0].result);
+
+          }
+          console.log("Script injected in all frames");
+          console.log("Script results:", results[0].result);
+        });
     }
   });
 
 };
 
-function getAmplenoteToken() {
-  console.log("getAmplenoteToken")
-}

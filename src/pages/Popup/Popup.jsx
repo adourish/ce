@@ -1,6 +1,6 @@
 
 import React, { Component } from "react";
-import OAuth2 from '../Components/OAuth2';
+
 import Notes from '../Components/Notes';
 import Calendar from '../Components/Calendar';
 import ChatGPT from '../Components/ChatGPT';
