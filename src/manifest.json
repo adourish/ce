@@ -16,6 +16,10 @@
   "icons": {
     "128": "icon-128.png"
   },
+  "permissions": [
+    "tabs",
+    "windows"
+  ],
   "content_scripts": [
     {
       "matches": [

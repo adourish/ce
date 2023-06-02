@@ -1,21 +1,23 @@
 import React, { useEffect } from 'react';
 
-class Calendar extends React.Component {
+class ChatGPT extends React.Component {
 
     render() {
         chrome.windows.create({
-            url: 'https://calendar.google.com/calendar/u/0/r',
+            url: 'https://chat.openai.com',
             type: 'popup',
-            width: 800,
+            focused: false,
+            width: 500,
             height: 600,
-            left: 1000,
-            top: 10
+            left: 0,
+            top: 615
         });
         return (
-
             <div />
         );
     }
+
 }
 
-export default Calendar;
+export default ChatGPT;
+

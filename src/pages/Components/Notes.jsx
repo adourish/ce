@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 
-class ChatGPT extends React.Component {
+class Notes extends React.Component {
 
     render() {
         chrome.windows.create({
-            url: 'https://chat.openai.com',
+            url: 'https://www.amplenote.com/notes',
             type: 'popup',
+            focused: false,
             width: 500,
             height: 600,
-            left: 0,
-            top: 10
+            left: 1280,
+            top: 15
         });
         return (
+
             <div />
         );
     }
-
 }
 
-export default ChatGPT;
-
+export default Notes;

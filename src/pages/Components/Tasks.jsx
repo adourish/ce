@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 
-class Notes extends React.Component {
+class Tasks extends React.Component {
 
     render() {
         chrome.windows.create({
-            url: 'https://www.amplenote.com/notes',
+            url: 'https://todoist.com/app/project/2149072136',
             type: 'popup',
+            focused: false,
             width: 500,
             height: 600,
-            left: 500,
-            top: 10
+            left: 790,
+            top: 15
         });
         return (
 
@@ -18,4 +19,4 @@ class Notes extends React.Component {
     }
 }
 
-export default Notes;
+export default Tasks;
