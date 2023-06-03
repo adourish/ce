@@ -20,7 +20,8 @@
     "tabs",
     "windows",
     "scripting",
-    "notifications"
+    "notifications",
+    "storage"
   ],
   "host_permissions": [
     "https://*/",
