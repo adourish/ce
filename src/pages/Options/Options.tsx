@@ -1,12 +1,18 @@
-import React from 'react';
-import './Options.css';
-import OptionsComponent from '../Components/OptionsComponent';
-interface Props {
-  title: string;
-}
 
-const Options: React.FC<Props> = ({ title }: Props) => {
-  return <OptionsComponent />;
+import React, { Component } from "react";
+
+
+import OptionsComponent from '../Components/OptionsComponent';
+import './Popup.css';
+
+const Options = () => {
+  return (
+    <div className="popup-container">
+
+
+      <OptionsComponent />
+    </div>
+  );
 };
 
 export default Options;
