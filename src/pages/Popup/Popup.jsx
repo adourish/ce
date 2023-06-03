@@ -1,10 +1,10 @@
 
 import React, { Component } from "react";
 
-import Notes from '../Components/Notes';
-import Calendar from '../Components/Calendar';
-import ChatGPT from '../Components/ChatGPT';
-import Tasks from '../Components/Tasks';
+import Notes from '../Components/NotesComponent';
+import Calendar from '../Components/CalendarComponent';
+import ChatGPT from '../Components/ChatGPTComponent';
+import Tasks from '../Components/TasksComponent';
 import TerminalPopup from '../Components/TerminalPopup';
 import './Popup.css';
 

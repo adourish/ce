@@ -16,7 +16,7 @@ for (var entryName in config.entry) {
   if (excludeEntriesToHotReload.indexOf(entryName) === -1) {
     config.entry[entryName] = [
       'webpack/hot/dev-server',
-      `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}`,
+      `webpack-dev-server/client?hot=true&hostname=localhost&port=${env.PORT}&https=true`,
     ].concat(config.entry[entryName]);
   }
 }
@@ -27,7 +27,7 @@ var compiler = webpack(config);
 
 var server = new WebpackDevServer(
   {
-    https: false,
+    https: true,
     hot: true,
     liveReload: false,
     client: {
@@ -40,7 +40,7 @@ var server = new WebpackDevServer(
       directory: path.join(__dirname, '../build'),
     },
     devMiddleware: {
-      publicPath: `http://localhost:${env.PORT}/`,
+      publicPath: `https://localhost:${env.PORT}/`,
       writeToDisk: true,
     },
     headers: {
