@@ -52,5 +52,5 @@ var server = new WebpackDevServer(
 );
 
 (async () => {
-  // await server.start();
+  await server.start();
 })();
