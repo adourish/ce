@@ -3,7 +3,7 @@ import { createWindow } from '../Content/modules/closeWindow';
 class OptionsComponent extends React.Component {
   constructor(props) {
     super(props);
-
+    /** 
     this.state = {
       config: {
         note: {
@@ -36,6 +36,7 @@ class OptionsComponent extends React.Component {
         }
       }
     };
+    */
   }
 
   componentDidMount() {
