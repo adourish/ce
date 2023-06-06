@@ -3,7 +3,7 @@ import { createWindow } from '../Content/modules/closeWindow';
 class ChatGPT extends React.Component {
 
     render() {
-        createWindow("https://chat.openai.com/", 500, 1200, 1250, 15)
+        createWindow("https://chat.openai.com/", 500, 1200, 1250, 15, true)
 
         return (
             <div />
