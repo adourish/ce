@@ -24,7 +24,7 @@ function getAmplenoteToken() {
 const Terminal = () => {
   const [inputText, setInputText] = useState('');
   const [content, setContent] = useState([]);
-  runScriptOnWindow("amplenoteToken", "https://www.amplenote.com/notes", getAmplenoteToken);
+  //runScriptOnWindow("amplenoteToken", "https://www.amplenote.com/notes", getAmplenoteToken);
   return (
     <div className="container">
       <div className="console-wrapper">
