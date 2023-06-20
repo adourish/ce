@@ -44,6 +44,15 @@
     }
   ],
   "devtools_page": "devtools.html",
+  "commands": {
+    "open-all": {
+      "suggested_key": {
+        "default": "Ctrl+M"
+      },
+      "description": "Toggle feature foo",
+      "global": true
+    }
+  },
   "web_accessible_resources": [
     {
       "resources": [

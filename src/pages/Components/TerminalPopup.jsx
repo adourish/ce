@@ -5,7 +5,7 @@ class TerminalPopup extends React.Component {
     render() {
         var url = "chrome-extension://" + chrome.runtime.id + "/terminal.html";
         console.log("TerminalPopup", url)
-        createWindow(url, 750, 430, 0, 550, true)
+        createWindow(url, 750, 430, 0, 550, false)
 
         return (
 
