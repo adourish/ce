@@ -1,5 +1,8 @@
 
-export const createWindow = (url, width, height, left, top, focused) => {
+export const createWindow = (url, width, height, left, top, focused, type) => {
+  if (!type) {
+    type = 'popup';
+  }
   chrome.windows.getAll({ populate: true }, function (windows) {
     console.log("createWindow getAll", windows)
     // Check if the window already exists
@@ -21,22 +24,30 @@ export const createWindow = (url, width, height, left, top, focused) => {
     if (existingWindow) {
       console.log("createWindow update", url)
       // Update the existing window's URL
-      chrome.tabs.update(existingWindow.tabs[0].id, { url: url });
+      //chrome.tabs.update(existingWindow.tabs[0].id, { url: url });
 
       // Bring the existing window to the foreground
       chrome.windows.update(existingWindow.id, { focused: focused });
     } else {
       // Create a new window
       console.log("createWindow create", url)
-      chrome.windows.create({
-        url: url,
-        type: 'popup',
-        focused: focused,
-        width: width,
-        height: height,
-        left: left,
-        top: top
-      });
+      if (type === 'popup') {
+        chrome.windows.create({
+          url: url,
+          type: type,
+          focused: focused,
+          width: width,
+          height: height,
+          left: left,
+          top: top
+        });
+      } else {
+        chrome.windows.create({
+          url: url,
+          type: type
+
+        });
+      }
     }
   });
 

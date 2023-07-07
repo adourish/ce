@@ -3,7 +3,8 @@ import { createWindow } from '../Content/modules/closeWindow';
 class Notes extends React.Component {
 
     render() {
-        createWindow("https://www.amplenote.com/notes", 1000, 430, 750, 550, true)
+
+        createWindow("https://www.amplenote.com/notes", 1600, 1260, 0, 15, true, 'popup')
 
         return (
 

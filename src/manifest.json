@@ -3,6 +3,7 @@
   "name": "AD Chrome Extension",
   "description": "AD chrome extension",
   "options_page": "options.html",
+  "catchRuntimeError": false,
   "background": {
     "service_worker": "background.bundle.js"
   },
@@ -20,7 +21,6 @@
     "tabs",
     "windows",
     "scripting",
-    "notifications",
     "storage"
   ],
   "host_permissions": [
@@ -34,9 +34,6 @@
       "matches": [
         "https://*/*",
         "https://www.amplenote.com/notes"
-      ],
-      "js": [
-        "contentScript.bundle.js"
       ],
       "css": [
         "content.styles.css"

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import logo from '../../assets/img/logo.svg';
 import './Terminal.css';
 import './Terminal.scss';
-import { runScriptOnWindow } from '../Content/modules/closeWindow';
+
 import Console from './Console';
 
 function getAmplenoteToken() {
