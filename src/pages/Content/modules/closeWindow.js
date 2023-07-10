@@ -24,7 +24,7 @@ export const createWindow = (url, width, height, left, top, focused, type) => {
     if (existingWindow) {
       console.log("createWindow update", url)
       // Update the existing window's URL
-      //chrome.tabs.update(existingWindow.tabs[0].id, { url: url });
+      chrome.tabs.update(existingWindow.tabs[0].id, { url: url });
 
       // Bring the existing window to the foreground
       chrome.windows.update(existingWindow.id, { focused: focused });
