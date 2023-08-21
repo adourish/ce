@@ -14,13 +14,11 @@ const Popup = () => {
   return (
     <div className="popup-container">
 
-
+      <ChatGPT />
       <Notes />
       <Calendar />
       <Tasks />
-
       <Mail />
-      <ChatGPT />
       <Chat />
     </div>
   );
