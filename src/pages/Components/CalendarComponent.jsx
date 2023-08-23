@@ -3,7 +3,7 @@ import { createWindow } from '../Content/modules/closeWindow';
 class Calendar extends React.Component {
 
     render() {
-        createWindow("https://calendar.google.com/calendar/u/0/r", 1000, 520, 0, 15, true, 'popup')
+        createWindow("https://calendar.google.com/calendar/u/0/r", 800, 520, 0, 15, true, 'popup')
 
         return (
 
