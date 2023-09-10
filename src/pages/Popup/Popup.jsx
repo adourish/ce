@@ -8,6 +8,7 @@ import Tasks from '../Components/TasksComponent';
 import TerminalPopup from '../Components/TerminalPopup';
 import Chat from '../Components/ChatComponent';
 import Mail from '../Components/MailComponent';
+import Feed from '../Components/FeedComponent';
 import './Popup.css';
 
 const Popup = () => {
@@ -20,6 +21,7 @@ const Popup = () => {
       <Tasks />
       <Mail />
       <Chat />
+      <Feed />
     </div>
   );
 };
