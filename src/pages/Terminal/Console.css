@@ -1,87 +1,83 @@
-/* App.css */
-html,
-body {
-  height: 100%;
-  margin: 0;
-}
-
-#root {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 /* Console.css */
+body {
+  margin: 0;
+  overflow-x: hidden;
+  /* Hide horizontal overflow for the entire page */
+}
+
 .console {
   background-color: black;
   color: white;
   padding: 10px;
   font-family: monospace;
-  height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
+  height: 100%;
+  overflow: hidden;
+  /* Hide overflow for the console */
 }
 
 .console-content {
   flex: 1;
   overflow-y: auto;
+  /* Add a vertical scrollbar for the content */
+  padding-right: 17px;
+  /* Add padding to accommodate the scrollbar width */
 }
 
-.console input[type="text"] {
+.console-content::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the vertical scrollbar */
+}
+
+.console-content::-webkit-scrollbar-thumb {
+  background-color: #333;
+  /* Scrollbar thumb color */
+  border-radius: 4px;
+  /* Rounded corners for the scrollbar thumb */
+}
+
+.console-content pre {
+  font-family: monospace;
+  white-space: pre-wrap;
+  /* Allow text to wrap within <pre> elements */
+  margin: 0;
+  /* Remove default margin for <pre> */
+}
+
+.input-form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* Align items in the middle of the row */
+  margin-top: 10px;
+  /* Add margin for spacing */
+}
+
+.input-textarea {
   background-color: transparent;
   color: white;
-  border: none;
-  border-bottom: 1px solid white;
-  padding: 5px;
+  border: 1px solid white;
+  /* Add border for better visibility */
+  padding: 10px;
   margin-right: 10px;
   font-family: monospace;
+  flex: 1;
+  resize: both;
+  /* Allow both horizontal and vertical resizing */
+  overflow: hidden;
+  /* Hide horizontal overflow for the textarea */
+  min-height: 30px;
+  /* Adjust the minimum height as needed */
 }
 
-.console button {
-  background-color: #333;
+.submit-button {
+  background-color: transparent;
+  /* No background color */
   color: white;
   border: none;
-  padding: 5px 10px;
+  padding: 10px 20px;
+  /* Increased padding for a slightly larger button */
   font-family: monospace;
   cursor: pointer;
-}
-
-.console button:hover {
-  background-color: #666;
-}
-
-.console {
-  background-color: black;
-  color: white;
-  padding: 0px;
-  font-family: monospace;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
-  overflow: hidden;
-}
-
-.console-content {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior-y: contain;
-}
-
-.console input[type="text"] {
-  background-color: transparent;
-  color: white;
-  border: none;
-  border-bottom: 1px solid white;
-  padding: 5px;
-  margin-right: 10px;
-  font-family: monospace;
-  overflow: hidden;
-  flex: 1;
-  width: 80%;
-  /* Add this line */
 }

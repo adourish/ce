@@ -107,20 +107,25 @@ function Console({ inputText, setInputText, content, setContent }) {
     <div className="console">
       <div className="console-content">
         {content.map((text, index) => (
-          <p key={index}>{text}</p>
+          <pre key={index}>{text}</pre>
         ))}
       </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
+      <form onSubmit={handleSubmit} className="input-form">
+        <textarea
           value={inputText}
           onChange={handleInputChange}
           placeholder="Enter text"
-        />
-        <button type="submit">Submit</button>
+          className="input-textarea"
+        ></textarea>
+        <button type="submit" className="submit-button">
+          🤔
+        </button>
       </form>
     </div>
   );
+
+
+
 }
 
 export default Console;
