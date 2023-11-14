@@ -37,47 +37,48 @@ body {
   /* Rounded corners for the scrollbar thumb */
 }
 
-.console-content pre {
-  font-family: monospace;
-  white-space: pre-wrap;
-  /* Allow text to wrap within <pre> elements */
-  margin: 0;
-  /* Remove default margin for <pre> */
-}
-
 .input-form {
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* Align items in the middle of the row */
+  flex-direction: column;
+  align-items: stretch;
   margin-top: 10px;
-  /* Add margin for spacing */
 }
 
 .input-textarea {
   background-color: transparent;
   color: white;
   border: 1px solid white;
-  /* Add border for better visibility */
   padding: 10px;
-  margin-right: 10px;
+  margin-bottom: 10px;
   font-family: monospace;
   flex: 1;
   resize: both;
-  /* Allow both horizontal and vertical resizing */
   overflow: hidden;
-  /* Hide horizontal overflow for the textarea */
   min-height: 30px;
-  /* Adjust the minimum height as needed */
+}
+
+.context-textarea {
+  margin-bottom: 0;
+  /* Remove margin-bottom for context textarea */
+}
+
+.question-textarea {
+  margin-right: 10px;
+  /* Add margin to separate question textarea and button */
+}
+
+.input-area {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  /* Align items vertically at the start */
 }
 
 .submit-button {
   background-color: transparent;
-  /* No background color */
   color: white;
   border: none;
   padding: 10px 20px;
-  /* Increased padding for a slightly larger button */
   font-family: monospace;
   cursor: pointer;
 }

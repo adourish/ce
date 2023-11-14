@@ -1,27 +1,32 @@
 import React, { useState } from 'react';
-
 import './Console.css';
 import { options } from '../Options/Options';
 import OpenAI from 'openai';
+
 const openaiAPIKey = options.openaiAPIKey;
 console.log('openaiAPIKey', openaiAPIKey);
 const openai = new OpenAI({
   apiKey: openaiAPIKey,
-  dangerouslyAllowBrowser: true
+  dangerouslyAllowBrowser: true,
 });
 
-
-async function chat(text, model, setContent) {
+async function chat(text, model, context, setContent) {
   try {
+    const messages = [
+      { role: 'system', content: 'You are a helpful assistant.' },
+      { role: 'assistant', content: context }, // Include context as a message
+      { role: 'user', content: text },
+    ];
+
     const response = await openai.chat.completions.create({
-      model: model, // Use the specified model
-      messages: [{ role: 'user', content: text }],
+      model: model,
+      messages: messages,
     });
 
     if (response && response.choices && response.choices.length > 0) {
       const output = response.choices[0]?.message?.content || '';
       console.log('Output:', output);
-      setContent((prevContent) => [...prevContent, output]); // Update the content state
+      setContent((prevContent) => [...prevContent, output]);
     } else {
       console.error('Response does not contain valid data.');
     }
@@ -30,45 +35,60 @@ async function chat(text, model, setContent) {
   }
 }
 
-
 function Console({ inputText, setInputText, content, setContent }) {
+  const [context, setContext] = useState('');
+  const maxChars = 9000;
+
+  const totalChars = context.length + inputText.length;
+  const remainingChars = maxChars - totalChars;
+
   const handleInputChange = (event) => {
-    setInputText(event.target.value);
+    const value = event.target.value;
+    setInputText(value);
+  };
+
+  const handleContextChange = (event) => {
+    const value = event.target.value;
+    setContext(value);
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const command = inputText.trim();
+
+    if (command.length > remainingChars) {
+      console.log('Input exceeds character limit.');
+      return;
+    }
+
     console.log('submit:', command);
+
     if (command.startsWith('/')) {
       const commandParts = command.split(' ');
       const cmd = commandParts[0];
       const text = commandParts.slice(1).join(' ');
 
       switch (cmd) {
-
         case '/gpt3':
           console.log('chat:', command);
-          chat(command, 'gpt-3.5-turbo', setContent);
+          chat(text, 'gpt-3.5-turbo', context, setContent);
           setContent([...content, command]);
           handleChatCommand('gpt-3.5-turbo:' + text);
           break;
         case '/gpt4':
-          chat(command, 'gpt-4', setContent);
+          chat(text, 'gpt-4', context, setContent);
           setContent([...content, command]);
           handleChatCommand('gpt4:' + text);
           break;
-
         default:
           console.log('default:', command);
-          chat(command, 'gpt-3.5-turbo', setContent);
+          chat(text, 'gpt-3.5-turbo', context, setContent);
           setContent([...content, command]);
-          handleChatCommand(command);
+          handleChatCommand(text);
       }
     } else {
-      // Handle regular input
       console.log('content:', command);
-      chat(command, 'gpt-3.5-turbo', setContent);
+      chat(command, 'gpt-3.5-turbo', context, setContent);
       setContent([...content, command]);
     }
 
@@ -76,32 +96,23 @@ function Console({ inputText, setInputText, content, setContent }) {
   };
 
   const handleNoteCommand = (text) => {
-    // Handle "/note" command
-    // Example: add note logic
     console.log('Note:', text);
   };
 
   const handleChatCommand = (text) => {
-    // Handle "/chat" command
-    // Example: add chat logic
-    chat(text);
+    chat(text, 'gpt-3.5-turbo', context, setContent);
     console.log('Chat:', text);
   };
 
   const handleTaskCommand = (text) => {
-    // Handle "/task" command
-    // Example: add task logic
     console.log('Task:', text);
   };
 
   const handleCalCommand = (text) => {
-    // Handle "/cal" command
-    // Example: add calendar logic
     console.log('Calendar:', text);
   };
 
   const handleUnknownCommand = () => {
-    // Handle unknown command
     console.log('Unknown command');
   };
 
@@ -113,21 +124,29 @@ function Console({ inputText, setInputText, content, setContent }) {
         ))}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
+        <div className="char-count">
+          {totalChars}/{maxChars} characters remaining
+        </div>
         <textarea
-          value={inputText}
-          onChange={handleInputChange}
-          placeholder="Question"
-          className="input-textarea"
+          value={context}
+          onChange={handleContextChange}
+          placeholder="Context (optional)"
+          className="input-textarea context-textarea"
         ></textarea>
-        <button type="submit" className="submit-button">
-          🤔
-        </button>
+        <div className="input-area">
+          <textarea
+            value={inputText}
+            onChange={handleInputChange}
+            placeholder="Question"
+            className="input-textarea question-textarea"
+          ></textarea>
+          <button type="submit" className="submit-button">
+            🤔
+          </button>
+        </div>
       </form>
     </div>
   );
-
-
-
 }
 
 export default Console;
