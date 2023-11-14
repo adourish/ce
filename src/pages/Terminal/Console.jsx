@@ -30,7 +30,7 @@ async function sendMessageToOpenAI(text, model, context) {
 function getMessageWithTimestamp(command, role) {
   const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
   const shortTimeString = new Date().toLocaleTimeString(undefined, options);
-  return `${shortTimeString}: ${role === 'user' ? 'User' : 'Assistant'} - ${command}`;
+  return `${shortTimeString}:${role === 'user' ? '👤' : '🤖'}: ${command}`;
 }
 
 function Console({ inputText, setInputText, content, setContent }) {
@@ -56,7 +56,8 @@ function Console({ inputText, setInputText, content, setContent }) {
     const command = inputText.trim();
 
     if (command.length > remainingChars) {
-      console.log('Input exceeds character limit.');
+      // Check if input exceeds character limit and show a message
+      setContent([...content, `Input exceeds character limit: ${maxChars} characters allowed.`]);
       return;
     }
 
@@ -141,7 +142,7 @@ function Console({ inputText, setInputText, content, setContent }) {
         {content.map((text, index) => (
           <pre key={index}>{text}</pre>
         ))}
-        {isLoading && <pre>Loading... /</pre>}
+        {isLoading && <pre>Wait... /</pre>}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
         <div className="char-count">
