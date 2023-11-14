@@ -25,8 +25,11 @@ async function chat(text, model, context, setContent) {
 
     if (response && response.choices && response.choices.length > 0) {
       const output = response.choices[0]?.message?.content || '';
-      console.log('Output:', output);
-      setContent((prevContent) => [...prevContent, output]);
+      const options = { hour: '2-digit', minute: '2-digit' };
+      const shortTimeString = new Date().toLocaleTimeString(undefined, options);
+      const messageWithTimestamp = `${shortTimeString}: ${output}`; // Add timestamp to the message
+      console.log('Output:', messageWithTimestamp);
+      setContent((prevContent) => [...prevContent, messageWithTimestamp]);
     } else {
       console.error('Response does not contain valid data.');
     }
@@ -89,7 +92,9 @@ function Console({ inputText, setInputText, content, setContent }) {
     } else {
       console.log('content:', command);
       chat(command, 'gpt-3.5-turbo', context, setContent);
-      setContent([...content, command]);
+      const shortTimeString = new Date().toLocaleTimeString(undefined, options);
+      const messageWithTimestamp = `${shortTimeString}: ${command}`; // Add timestamp to the message
+      setContent([...content, messageWithTimestamp]);
     }
 
     setInputText('');

@@ -37,6 +37,16 @@ body {
   /* Rounded corners for the scrollbar thumb */
 }
 
+.console-content pre {
+  font-family: monospace;
+  white-space: pre-wrap;
+  /* Allow text to wrap within <pre> elements */
+  margin: 0;
+  /* Remove default margin for <pre> */
+  word-wrap: break-word;
+  /* Add word-wrap for long words */
+}
+
 .input-form {
   display: flex;
   flex-direction: column;
