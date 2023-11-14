@@ -10,36 +10,32 @@ const openai = new OpenAI({
   dangerouslyAllowBrowser: true,
 });
 
-async function chat(text, model, context, setContent) {
-  try {
-    const messages = [
-      { role: 'system', content: 'You are a helpful assistant.' },
-      { role: 'assistant', content: context }, // Include context as a message
-      { role: 'user', content: text },
-    ];
+// Utility function to send a message to OpenAI
+async function sendMessageToOpenAI(text, model, context) {
+  const messages = [
+    { role: 'system', content: 'You are a helpful assistant.' },
+    { role: 'assistant', content: context }, // Include context as a message
+    { role: 'user', content: text },
+  ];
 
-    const response = await openai.chat.completions.create({
-      model: model,
-      messages: messages,
-    });
+  const response = await openai.chat.completions.create({
+    model: model,
+    messages: messages,
+  });
 
-    if (response && response.choices && response.choices.length > 0) {
-      const output = response.choices[0]?.message?.content || '';
-      const options = { hour: '2-digit', minute: '2-digit' };
-      const shortTimeString = new Date().toLocaleTimeString(undefined, options);
-      const messageWithTimestamp = `${shortTimeString}: ${output}`; // Add timestamp to the message
-      console.log('Output:', messageWithTimestamp);
-      setContent((prevContent) => [...prevContent, messageWithTimestamp]);
-    } else {
-      console.error('Response does not contain valid data.');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-  }
+  return response;
+}
+
+// Function to generate a message with a timestamp
+function getMessageWithTimestamp(command, role) {
+  const options = { hour12: false, hour: '2-digit', minute: '2-digit' };
+  const shortTimeString = new Date().toLocaleTimeString(undefined, options);
+  return `${shortTimeString}: ${role === 'user' ? 'User' : 'Assistant'} - ${command}`;
 }
 
 function Console({ inputText, setInputText, content, setContent }) {
   const [context, setContext] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // State to track loading status
   const maxChars = 9000;
 
   const totalChars = context.length + inputText.length;
@@ -55,7 +51,7 @@ function Console({ inputText, setInputText, content, setContent }) {
     setContext(value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const command = inputText.trim();
 
@@ -65,38 +61,56 @@ function Console({ inputText, setInputText, content, setContent }) {
     }
 
     console.log('submit:', command);
+    setIsLoading(true); // Set loading status to true
 
     if (command.startsWith('/')) {
       const commandParts = command.split(' ');
       const cmd = commandParts[0];
       const text = commandParts.slice(1).join(' ');
 
+      let response;
+
       switch (cmd) {
         case '/gpt3':
           console.log('chat:', command);
-          chat(text, 'gpt-3.5-turbo', context, setContent);
-          setContent([...content, command]);
+          response = await sendMessageToOpenAI(text, 'gpt-3.5-turbo', context);
+          setContent([
+            ...content,
+            getMessageWithTimestamp(command, 'user'),
+            getMessageWithTimestamp(response.choices[0]?.message?.content, 'assistant'),
+          ]);
           handleChatCommand('gpt-3.5-turbo:' + text);
           break;
         case '/gpt4':
-          chat(text, 'gpt-4', context, setContent);
-          setContent([...content, command]);
+          response = await sendMessageToOpenAI(text, 'gpt-4', context);
+          setContent([
+            ...content,
+            getMessageWithTimestamp(command, 'user'),
+            getMessageWithTimestamp(response.choices[0]?.message?.content, 'assistant'),
+          ]);
           handleChatCommand('gpt4:' + text);
           break;
         default:
           console.log('default:', command);
-          chat(text, 'gpt-3.5-turbo', context, setContent);
-          setContent([...content, command]);
+          response = await sendMessageToOpenAI(text, 'gpt-3.5-turbo', context);
+          setContent([
+            ...content,
+            getMessageWithTimestamp(command, 'user'),
+            getMessageWithTimestamp(response.choices[0]?.message?.content, 'assistant'),
+          ]);
           handleChatCommand(text);
       }
     } else {
       console.log('content:', command);
-      chat(command, 'gpt-3.5-turbo', context, setContent);
-      const shortTimeString = new Date().toLocaleTimeString(undefined, options);
-      const messageWithTimestamp = `${shortTimeString}: ${command}`; // Add timestamp to the message
-      setContent([...content, messageWithTimestamp]);
+      const response = await sendMessageToOpenAI(command, 'gpt-3.5-turbo-1106', context);
+      setContent([
+        ...content,
+        getMessageWithTimestamp(command, 'user'),
+        getMessageWithTimestamp(response.choices[0]?.message?.content, 'assistant'),
+      ]);
     }
 
+    setIsLoading(false); // Set loading status to false
     setInputText('');
   };
 
@@ -105,7 +119,7 @@ function Console({ inputText, setInputText, content, setContent }) {
   };
 
   const handleChatCommand = (text) => {
-    chat(text, 'gpt-3.5-turbo', context, setContent);
+    const response = sendMessageToOpenAI(text, 'gpt-3.5-turbo', context);
     console.log('Chat:', text);
   };
 
@@ -127,6 +141,7 @@ function Console({ inputText, setInputText, content, setContent }) {
         {content.map((text, index) => (
           <pre key={index}>{text}</pre>
         ))}
+        {isLoading && <pre>Loading... /</pre>}
       </div>
       <form onSubmit={handleSubmit} className="input-form">
         <div className="char-count">
