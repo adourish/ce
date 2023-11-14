@@ -11,10 +11,10 @@ const openai = new OpenAI({
 });
 
 
-async function chat(text, setContent) {
+async function chat(text, model, setContent) {
   try {
     const response = await openai.chat.completions.create({
-      model: 'gpt-4',
+      model: model, // Use the specified model
       messages: [{ role: 'user', content: text }],
     });
 
@@ -29,6 +29,7 @@ async function chat(text, setContent) {
     console.error('Error:', error);
   }
 }
+
 
 function Console({ inputText, setInputText, content, setContent }) {
   const handleInputChange = (event) => {
@@ -45,28 +46,29 @@ function Console({ inputText, setInputText, content, setContent }) {
       const text = commandParts.slice(1).join(' ');
 
       switch (cmd) {
-        case '/note':
-          handleNoteCommand(text);
-          break;
-        case '/chat':
+
+        case '/gpt3':
           console.log('chat:', command);
-          handleChatCommand(text);
+          chat(command, 'gpt-3.5-turbo', setContent);
+          setContent([...content, command]);
+          handleChatCommand('gpt-3.5-turbo:' + text);
           break;
-        case '/task':
-          handleTaskCommand(text);
+        case '/gpt4':
+          chat(command, 'gpt-4', setContent);
+          setContent([...content, command]);
+          handleChatCommand('gpt4:' + text);
           break;
-        case '/cal':
-          handleCalCommand(text);
-          break;
+
         default:
           console.log('default:', command);
-          chat(command, setContent);
+          chat(command, 'gpt-3.5-turbo', setContent);
+          setContent([...content, command]);
           handleChatCommand(command);
       }
     } else {
       // Handle regular input
       console.log('content:', command);
-      chat(command, setContent);
+      chat(command, 'gpt-3.5-turbo', setContent);
       setContent([...content, command]);
     }
 
@@ -114,7 +116,7 @@ function Console({ inputText, setInputText, content, setContent }) {
         <textarea
           value={inputText}
           onChange={handleInputChange}
-          placeholder="Enter text"
+          placeholder="Question"
           className="input-textarea"
         ></textarea>
         <button type="submit" className="submit-button">
