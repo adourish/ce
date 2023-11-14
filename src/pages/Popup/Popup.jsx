@@ -22,6 +22,7 @@ const Popup = () => {
       <Mail />
       <Chat />
       <Feed />
+      <TerminalPopup />
     </div>
   );
 };

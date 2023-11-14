@@ -1,5 +1,35 @@
 import React, { useState } from 'react';
+
 import './Console.css';
+import { options } from '../Options/Options';
+import OpenAI from 'openai';
+const openaiAPIKey = options.openaiAPIKey;
+console.log('openaiAPIKey', openaiAPIKey);
+const openai = new OpenAI({
+  apiKey: openaiAPIKey,
+  dangerouslyAllowBrowser: true
+});
+
+
+async function chat(text, setContent) {
+  try {
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4',
+      messages: [{ role: 'user', content: text }],
+    });
+
+    if (response && response.choices && response.choices.length > 0) {
+      const output = response.choices[0]?.message?.content || '';
+      console.log('Output:', output);
+      setContent((prevContent) => [...prevContent, output]); // Update the content state
+    } else {
+      console.error('Response does not contain valid data.');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
+}
+
 function Console({ inputText, setInputText, content, setContent }) {
   const handleInputChange = (event) => {
     setInputText(event.target.value);
@@ -8,7 +38,7 @@ function Console({ inputText, setInputText, content, setContent }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     const command = inputText.trim();
-    console.log('test submit:', command);
+    console.log('submit:', command);
     if (command.startsWith('/')) {
       const commandParts = command.split(' ');
       const cmd = commandParts[0];
@@ -19,6 +49,7 @@ function Console({ inputText, setInputText, content, setContent }) {
           handleNoteCommand(text);
           break;
         case '/chat':
+          console.log('chat:', command);
           handleChatCommand(text);
           break;
         case '/task':
@@ -28,11 +59,15 @@ function Console({ inputText, setInputText, content, setContent }) {
           handleCalCommand(text);
           break;
         default:
-          handleUnknownCommand();
+          console.log('default:', command);
+          chat(command, setContent);
+          handleChatCommand(command);
       }
     } else {
       // Handle regular input
-      setContent([...content, inputText]);
+      console.log('content:', command);
+      chat(command, setContent);
+      setContent([...content, command]);
     }
 
     setInputText('');
@@ -47,6 +82,7 @@ function Console({ inputText, setInputText, content, setContent }) {
   const handleChatCommand = (text) => {
     // Handle "/chat" command
     // Example: add chat logic
+    chat(text);
     console.log('Chat:', text);
   };
 
