@@ -14,15 +14,11 @@ import './Popup.css';
 const Popup = () => {
   return (
     <div className="popup-container">
-
-      <ChatGPT />
-      <Notes />
       <Calendar />
       <Tasks />
       <Mail />
       <Chat />
-      <Feed />
-      <TerminalPopup />
+
     </div>
   );
 };

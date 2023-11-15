@@ -36,7 +36,7 @@ function getMessageWithTimestamp(command, role) {
 function Console({ inputText, setInputText, content, setContent }) {
   const [context, setContext] = useState('');
   const [isLoading, setIsLoading] = useState(false); // State to track loading status
-  const maxChars = 9000;
+  const maxChars = 100000;
 
   const totalChars = context.length + inputText.length;
   const remainingChars = maxChars - totalChars;
@@ -103,7 +103,7 @@ function Console({ inputText, setInputText, content, setContent }) {
       }
     } else {
       console.log('content:', command);
-      const response = await sendMessageToOpenAI(command, 'gpt-3.5-turbo-1106', context);
+      const response = await sendMessageToOpenAI(command, 'gpt-3.5-turbo', context);
       setContent([
         ...content,
         getMessageWithTimestamp(command, 'user'),

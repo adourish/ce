@@ -57,15 +57,17 @@ body {
 .input-textarea {
   background-color: transparent;
   color: white;
-  border: 1px solid white;
+  border: 1px solid #333;
   padding: 10px;
   margin-bottom: 10px;
   font-family: monospace;
   flex: 1;
   resize: both;
-  overflow: hidden;
+  overflow-y: scroll;
+  /* Add vertical scroll */
   min-height: 30px;
 }
+
 
 .context-textarea {
   margin-bottom: 0;
