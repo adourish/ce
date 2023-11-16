@@ -9,7 +9,7 @@ const Options = () => {
     <div className="popup-container">
 
 
-      <OptionsComponent />
+      <Options />
     </div>
   );
 };
