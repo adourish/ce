@@ -6,6 +6,7 @@ class Chat extends React.Component {
         createWindow("https://mail.google.com/chat/u/0/#chat/dm/vt8gbgAAAAE", 750, 1000, 950, 15, false, 'popup')
         createWindow("https://messages.google.com/web/conversations/925", 750, 1000, 950, 15, false, 'popup')
         createWindow("https://web.whatsapp.com/", 750, 1200, 950, 15, false, 'popup')
+        createWindow("file:///C:/Projects/robodog/robodog/dist/robodog.html", 750, 1000, 950, 15, false, 'popup')
         return (
 
             <div />
