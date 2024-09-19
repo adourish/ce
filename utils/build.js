@@ -42,8 +42,12 @@ webpack(config, function (err, stats) {
   var zipFilePath = path.join(__dirname, '../', 'zip', `${packageInfo.name}-${packageInfo.version}.zip`);
   var buildFolderPath = path.join(__dirname, '../', 'build');
 
-  extract(zipFilePath, { dir: buildFolderPath }, function (err) {
-    if (err) throw err;
-    console.log('Zip file contents extracted to the build folder.');
-  });
+  if (fs.existsSync(zipFilePath)) {
+    extract(zipFilePath, { dir: buildFolderPath }, function (err) {
+      if (err) throw err;
+      console.log('Zip file contents extracted to the build folder.');
+    });
+  } else {
+    console.error('Zip file not found:', zipFilePath);
+  }
 });

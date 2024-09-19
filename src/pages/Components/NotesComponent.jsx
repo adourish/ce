@@ -4,7 +4,7 @@ class Notes extends React.Component {
 
     render() {
 
-        createWindow("https://www.amplenote.com/notes", 1600, 1260, 0, 15, true, 'popup')
+        createWindow("https://www.amplenote.com/notes", 1600, 1260, 0, 15, true, 'popup', 'maximized')
 
         return (
 

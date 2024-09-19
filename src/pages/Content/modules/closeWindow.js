@@ -1,5 +1,5 @@
 
-export const createWindow = (url, width, height, left, top, focused, type) => {
+export const createWindow = (url, width, height, left, top, focused, type, state) => {
   if (!type) {
     type = 'popup';
   }
@@ -39,7 +39,8 @@ export const createWindow = (url, width, height, left, top, focused, type) => {
           width: width,
           height: height,
           left: left,
-          top: top
+          top: top,
+          state: state
         });
       } else {
         chrome.windows.create({
